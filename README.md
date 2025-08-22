@@ -2,7 +2,7 @@
 
 **Name:** vmware-sec-assessment.ps1  
 **Purpose:** Read-only vSphere 8 Security Assessment using VMware PowerCLI.  
-**Author:** Paladin alias LT  
+**Author:** LT  
 **Version:** 1.2  
 **Target:** VMware vSphere 8
 
@@ -113,14 +113,14 @@ What It Checks
 Example Output
 Per-check lines (partial)
 
-Category      Check                                   Object                      Status Details
---------      -----                                   ------                      ------ -------
-1.Install     ESXi hosts properly patched (info)      esxi01.lab.local            INFO   Version=8.0.2 build 22380479
-1.Install     VIB acceptance level is Partner/VMware  esxi01.lab.local            PASS   AcceptanceLevel=VMwareAccepted
-2.Communication NTP configured and running            esxi01.lab.local            FAIL   Servers=; Running=False
-5.Console     SSH service disabled                    esxi01.lab.local            FAIL   Running=True
-7.Network     Reject Promiscuous Mode (Std PG)        vSwitch0/VM Network         PASS   AllowPromiscuous=False
-8.Virtual Machines VM console copy disabled           app-01                      FAIL   isolation.tools.copy.disable=False
+Category            Check                                   Object                      Status Details
+--------            -----                                   ------                      ------ -------
+1.Install           ESXi hosts properly patched (info)      esxi01.lab.local            INFO   Version=8.0.2 build 22380479
+1.Install           VIB acceptance level is Partner/VMware  esxi01.lab.local            PASS   AcceptanceLevel=VMwareAccepted
+2.Communication     NTP configured and running              esxi01.lab.local            FAIL   Servers=; Running=False
+5.Console           SSH service disabled                    esxi01.lab.local            FAIL   Running=True
+7.Network           Reject Promiscuous Mode (Std PG)        vSwitch0/VM Network         PASS   AllowPromiscuous=False
+8.Virtual Machines  VM console copy disabled                app-01                      FAIL   isolation.tools.copy.disable=False
 
 Summary by Category and Status
 
