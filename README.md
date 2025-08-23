@@ -4,7 +4,6 @@
 **Purpose:** Read-only vSphere 8 Security Assessment using VMware PowerCLI.  
 **Author:** LT  
 **Version:** 1.2  
-**Target:** VMware vSphere 8
 
 ---
 
