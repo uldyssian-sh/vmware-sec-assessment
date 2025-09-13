@@ -1,11 +1,10 @@
 # VMware Security Assessment Framework
 
-[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/VMwareSecAssessment?style=flat-square)](https://www.powershellgallery.com/packages/VMwareSecAssessment)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/uldyssian-sh/vmware-sec-assessment/ci.yml?branch=main&style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
-[![Code Coverage](https://img.shields.io/codecov/c/github/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://codecov.io/gh/uldyssian-sh/vmware-sec-assessment)
-[![Security Rating](https://img.shields.io/snyk/vulnerabilities/github/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://snyk.io/test/github/uldyssian-sh/vmware-sec-assessment)
-[![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/VMwareSecAssessment?style=flat-square)](https://www.powershellgallery.com/packages/VMwareSecAssessment)
+[![GitHub Stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
+[![GitHub Forks](https://img.shields.io/github/forks/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/network)
 
 A comprehensive security assessment framework for VMware vSphere environments, providing automated compliance checks, vulnerability assessments, and security hardening recommendations.
 
@@ -31,10 +30,7 @@ A comprehensive security assessment framework for VMware vSphere environments, p
 ### Installation
 
 ```powershell
-# Install from PowerShell Gallery
-Install-Module -Name VMwareSecAssessment -Scope CurrentUser
-
-# Or clone from GitHub
+# Clone from GitHub
 git clone https://github.com/uldyssian-sh/vmware-sec-assessment.git
 cd vmware-sec-assessment
 Import-Module .\VMwareSecAssessment.psd1
