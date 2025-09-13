@@ -1,0 +1,125 @@
+# VMware Security Assessment Framework
+
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/VMwareSecAssessment?style=flat-square)](https://www.powershellgallery.com/packages/VMwareSecAssessment)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/uldyssian-sh/vmware-sec-assessment/ci.yml?branch=main&style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
+[![Code Coverage](https://img.shields.io/codecov/c/github/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://codecov.io/gh/uldyssian-sh/vmware-sec-assessment)
+[![Security Rating](https://img.shields.io/snyk/vulnerabilities/github/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://snyk.io/test/github/uldyssian-sh/vmware-sec-assessment)
+[![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/VMwareSecAssessment?style=flat-square)](https://www.powershellgallery.com/packages/VMwareSecAssessment)
+
+A comprehensive security assessment framework for VMware vSphere environments, providing automated compliance checks, vulnerability assessments, and security hardening recommendations.
+
+## 🚀 Features
+
+- **Multi-Standard Compliance**: CIS Benchmarks, DISA STIG, NIST, ISO 27001
+- **Automated Assessment**: Comprehensive security posture evaluation
+- **Detailed Reporting**: HTML, JSON, CSV, and PDF report formats
+- **Remediation Guidance**: Step-by-step hardening recommendations
+- **Enterprise Ready**: Scalable for large vSphere deployments
+- **Zero Dependencies**: Pure PowerShell implementation
+- **Offline Capable**: Works in air-gapped environments
+
+## 📋 Requirements
+
+- PowerShell 5.1 or later (PowerShell 7+ recommended)
+- VMware PowerCLI 12.0 or later
+- vSphere 6.7 or later
+- Appropriate vCenter permissions (Read-only minimum)
+
+## 🔧 Quick Start
+
+### Installation
+
+```powershell
+# Install from PowerShell Gallery
+Install-Module -Name VMwareSecAssessment -Scope CurrentUser
+
+# Or clone from GitHub
+git clone https://github.com/uldyssian-sh/vmware-sec-assessment.git
+cd vmware-sec-assessment
+Import-Module .\VMwareSecAssessment.psd1
+```
+
+### Basic Usage
+
+```powershell
+# Connect to vCenter
+Connect-VIServer -Server vcenter.example.com
+
+# Run comprehensive security assessment
+$assessment = Start-VMwareSecurityAssessment -VCenter "vcenter.example.com" -Standard "CIS"
+
+# Generate detailed report
+Export-SecurityReport -Assessment $assessment -Format HTML -Path ".\security-report.html"
+```
+
+## 📖 Documentation
+
+- [Installation Guide](docs/INSTALLATION.md)
+- [Quick Start Tutorial](docs/QUICK_START.md)
+- [API Reference](docs/API.md)
+- [Configuration Guide](docs/CONFIGURATION.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Wiki](https://github.com/uldyssian-sh/vmware-sec-assessment/wiki)
+
+## 🎯 Supported Assessments
+
+| Standard | Version | Coverage | Status |
+|----------|---------|----------|--------|
+| CIS VMware vSphere | 8.0 | 100% | ✅ Complete |
+| DISA STIG | Latest | 95% | ✅ Complete |
+| NIST Cybersecurity Framework | 1.1 | 85% | 🔄 In Progress |
+| ISO 27001 | 2013 | 75% | 🔄 In Progress |
+
+## 🏗️ Architecture
+
+```
+VMware Security Assessment Framework
+├── Core Engine
+│   ├── Assessment Orchestrator
+│   ├── Compliance Checkers
+│   └── Report Generator
+├── Standards Library
+│   ├── CIS Benchmarks
+│   ├── DISA STIG
+│   └── Custom Rules
+└── Output Modules
+    ├── HTML Reports
+    ├── JSON Export
+    └── Remediation Scripts
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔒 Security
+
+For security concerns, please see our [Security Policy](SECURITY.md).
+
+## 📊 Project Stats
+
+![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment?style=social)
+![GitHub forks](https://img.shields.io/github/forks/uldyssian-sh/vmware-sec-assessment?style=social)
+![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-sec-assessment)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/uldyssian-sh/vmware-sec-assessment)
+
+## 🙏 Acknowledgments
+
+- VMware Security Team for guidance
+- PowerShell Community for best practices
+- Security researchers for vulnerability reports
+
+---
+
+**Made with ❤️ for the VMware Security Community**

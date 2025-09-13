@@ -1,0 +1,78 @@
+# PowerShell
+*.ps1xml
+*.pdb
+*.dll
+*.exe
+*.msi
+*.zip
+*.7z
+
+# Logs
+*.log
+logs/
+*.tmp
+
+# Configuration files with sensitive data
+config/production.json
+config/secrets.json
+*.credentials
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Test results
+TestResults/
+test-results.xml
+coverage.xml
+*.coverage
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+build/
+dist/
+out/
+bin/
+obj/
+
+# Package files
+*.nupkg
+*.nuspec
+
+# Temporary files
+temp/
+tmp/
+*.bak
+*.backup
+
+# Reports (may contain sensitive data)
+reports/*.html
+reports/*.pdf
+reports/*.json
+reports/*.csv
+
+# Cache
+.cache/
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

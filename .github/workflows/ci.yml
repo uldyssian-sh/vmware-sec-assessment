@@ -1,0 +1,123 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly on Monday at 2 AM
+
+env:
+  POWERSHELL_TELEMETRY_OPTOUT: 1
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        powershell-version: ['5.1', '7.x']
+        exclude:
+          - os: ubuntu-latest
+            powershell-version: '5.1'
+          - os: macos-latest
+            powershell-version: '5.1'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+      with:
+        powershell-version: ${{ matrix.powershell-version }}
+        
+    - name: Cache PowerShell modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.local/share/powershell/Modules
+          ~/Documents/PowerShell/Modules
+        key: ${{ runner.os }}-powershell-${{ hashFiles('**/*.psd1') }}
+        
+    - name: Install dependencies
+      shell: pwsh
+      run: |
+        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+        Install-Module -Name Pester -Force -SkipPublisherCheck
+        Install-Module -Name PSScriptAnalyzer -Force
+        
+    - name: Run PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        $results = Invoke-ScriptAnalyzer -Path . -Recurse -ReportSummary
+        if ($results) {
+          $results | Format-Table -AutoSize
+          throw "PSScriptAnalyzer found issues"
+        }
+        
+    - name: Run Pester tests
+      shell: pwsh
+      run: |
+        $config = New-PesterConfiguration
+        $config.Run.Path = './tests'
+        $config.CodeCoverage.Enabled = $true
+        $config.CodeCoverage.Path = './src'
+        $config.TestResult.Enabled = $true
+        $config.TestResult.OutputFormat = 'JUnitXml'
+        $config.TestResult.OutputPath = './test-results.xml'
+        Invoke-Pester -Configuration $config
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}-${{ matrix.powershell-version }}
+        path: test-results.xml
+        
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+        
+  publish:
+    name: Publish to PowerShell Gallery
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+      
+    - name: Publish module
+      shell: pwsh
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        if ($env:NUGET_API_KEY) {
+          Publish-Module -Path . -NuGetApiKey $env:NUGET_API_KEY -Verbose
+        } else {
+          Write-Host "Skipping publish - no API key configured"
+        }

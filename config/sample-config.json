@@ -1,0 +1,77 @@
+{
+  "assessment": {
+    "name": "VMware Security Assessment",
+    "version": "1.0.0",
+    "description": "Comprehensive security assessment configuration"
+  },
+  "vCenter": {
+    "connectionTimeout": 300,
+    "maxRetries": 3,
+    "sslVerification": true,
+    "port": 443
+  },
+  "standards": {
+    "CIS": {
+      "version": "8.0",
+      "enabled": true,
+      "categories": [
+        "access-control",
+        "logging-monitoring",
+        "network-security",
+        "system-hardening"
+      ]
+    },
+    "STIG": {
+      "version": "latest",
+      "enabled": true,
+      "severity": ["high", "medium", "low"]
+    },
+    "NIST": {
+      "framework": "1.1",
+      "enabled": false,
+      "functions": ["identify", "protect", "detect", "respond", "recover"]
+    }
+  },
+  "assessment": {
+    "parallel": {
+      "enabled": true,
+      "maxThreads": 5
+    },
+    "timeout": {
+      "perCheck": 30,
+      "total": 3600
+    },
+    "retry": {
+      "enabled": true,
+      "maxAttempts": 3,
+      "delaySeconds": 5
+    }
+  },
+  "reporting": {
+    "formats": ["html", "json", "csv"],
+    "includeRemediation": true,
+    "includeSummary": true,
+    "detailLevel": "full",
+    "encryption": {
+      "enabled": false,
+      "algorithm": "AES256"
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "./logs/assessment.log",
+    "maxSize": "10MB",
+    "retention": 30
+  },
+  "exclusions": {
+    "hosts": [],
+    "clusters": [],
+    "vms": [],
+    "checks": []
+  },
+  "customRules": {
+    "enabled": false,
+    "path": "./custom-rules/",
+    "validation": true
+  }
+}
