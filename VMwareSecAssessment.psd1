@@ -9,22 +9,15 @@
     
     PowerShellVersion = '5.1'
     
-    RequiredModules = @(
-        @{
-            ModuleName = 'VMware.PowerCLI'
-            ModuleVersion = '12.0.0'
-        }
-    )
-    
     FunctionsToExport = @(
         'Start-VMwareSecurityAssessment',
         'Export-SecurityReport',
-        'Get-ComplianceStatus',
-        'Test-SecurityControl',
-        'New-RemediationScript',
-        'Import-SecurityStandard',
-        'Get-VulnerabilityReport',
-        'Set-AssessmentConfiguration'
+        'Get-AssessmentConfiguration',
+        'Invoke-InfrastructureAssessment',
+        'Invoke-VirtualMachineAssessment',
+        'Invoke-NetworkAssessment',
+        'New-AssessmentSummary',
+        'New-SecurityRecommendations'
     )
     
     CmdletsToExport = @()
@@ -36,13 +29,7 @@
             Tags = @('VMware', 'Security', 'Compliance', 'CIS', 'STIG', 'Assessment', 'vSphere')
             LicenseUri = 'https://github.com/uldyssian-sh/vmware-sec-assessment/blob/main/LICENSE'
             ProjectUri = 'https://github.com/uldyssian-sh/vmware-sec-assessment'
-            IconUri = 'https://raw.githubusercontent.com/uldyssian-sh/vmware-sec-assessment/main/assets/icon.png'
             ReleaseNotes = 'Initial release of VMware Security Assessment Framework'
-            Prerelease = ''
-            RequireLicenseAcceptance = $false
-            ExternalModuleDependencies = @('VMware.PowerCLI')
         }
     }
-    
-    HelpInfoURI = 'https://github.com/uldyssian-sh/vmware-sec-assessment/wiki'
 }

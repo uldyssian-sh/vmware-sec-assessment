@@ -9,7 +9,7 @@ Describe "VMwareSecAssessment Module" {
         }
         
         It "Should import without errors" {
-            { Import-Module $ModulePath -Force } | Should -Not -Throw
+            { Import-Module $ModulePath -Force -ErrorAction Stop } | Should -Not -Throw
         }
     }
 }
