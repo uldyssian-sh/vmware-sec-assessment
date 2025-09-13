@@ -8,6 +8,8 @@
 
 A comprehensive security assessment framework for VMware vSphere environments, providing automated compliance checks, vulnerability assessments, and security hardening recommendations.
 
+**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)
+
 ## 🚀 Features
 
 - **Multi-Standard Compliance**: CIS Benchmarks, DISA STIG, NIST, ISO 27001
