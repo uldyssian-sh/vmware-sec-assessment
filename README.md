@@ -1,5 +1,22 @@
 # VMware Security Assessment Framework
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+
+## Prerequisites
+
+Before using this project, ensure you have:
+- Required tools and dependencies
+- Proper access credentials
+- System requirements met
+
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/uldyssian-sh/vmware-sec-assessment/ci.yml?branch=main&style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
 [![GitHub Stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment?style=flat-square)](https://github.com/uldyssian-sh/vmware-sec-assessment/stargazers)
@@ -147,3 +164,21 @@ For security concerns, please see our [Security Policy](SECURITY.md).
 ---
 
 **Made with ❤️ for the VMware Security Community**
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+- How to submit issues
+- How to propose changes
+- Code style guidelines
+- Review process
+
+## Support
+
+- 📖 [Wiki Documentation](../../wiki)
+- 💬 [Discussions](../../discussions)
+- 🐛 [Issue Tracker](../../issues)
+- 🔒 [Security Policy](SECURITY.md)
+
+---
+**Made with ❤️ for the community**
