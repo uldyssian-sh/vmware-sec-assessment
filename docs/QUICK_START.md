@@ -220,7 +220,7 @@ $config.customRules.path = ".\custom-rules\"
    ```powershell
    # Check PowerCLI version
    Get-Module VMware.PowerCLI -ListAvailable
-   
+
    # Update PowerCLI
    Update-Module VMware.PowerCLI
    ```

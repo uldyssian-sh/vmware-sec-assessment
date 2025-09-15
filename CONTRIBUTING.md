@@ -75,21 +75,21 @@ Install-Module -Name VMware.PowerCLI -Force
        .NOTES
            Additional notes
        #>
-       
+
        [CmdletBinding()]
        param(
            [Parameter(Mandatory = $true)]
            [string]$RequiredParameter
        )
-       
+
        begin {
            # Initialization
        }
-       
+
        process {
            # Main logic
        }
-       
+
        end {
            # Cleanup
        }
