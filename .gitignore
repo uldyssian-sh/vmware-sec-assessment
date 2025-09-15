@@ -76,3 +76,14 @@ node_modules/
 *.suo
 *.userosscache
 *.sln.docstates
+# Performance optimization
+*.log
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+node_modules/
+.vscode/settings.json
+.idea/
