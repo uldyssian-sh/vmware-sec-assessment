@@ -263,9 +263,9 @@ Get-Content ".\logs\assessment.log" -Tail 50
 
 ## Getting Help
 
-- **Documentation**: [GitHub Wiki](https://github.com/uldyssian-sh/vmware-sec-assessment/wiki)
-- **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/uldyssian-sh/vmware-sec-assessment/discussions)
+- **Documentation**: GitHub Wiki
+- **Issues**: GitHub Issues
+- **Discussions**: GitHub Discussions
 
 ---
 

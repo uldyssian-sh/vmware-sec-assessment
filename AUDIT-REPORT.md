@@ -1,7 +1,7 @@
 # VMware Security Assessment - Audit Report
 
 **Generated:** $(date)  
-**Repository:** vmware-sec-assessment  
+**Repository:** VMware Security Assessment  
 **Audit Scope:** Full repository security and compliance assessment  
 **Status:** ✅ COMPLETED
 
@@ -104,7 +104,7 @@ This comprehensive audit report covers the security, compliance, and operational
 ## Repository Structure Assessment
 
 ```
-vmware-sec-assessment/
+vmware-security-assessment/
 ├── .github/
 │   ├── workflows/          # ✅ Complete CI/CD pipeline
 │   ├── ISSUE_TEMPLATE/     # ✅ Issue templates

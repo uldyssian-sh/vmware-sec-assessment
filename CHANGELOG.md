@@ -182,4 +182,4 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ---
 
-**For detailed release information, see [GitHub Releases](https://github.com/uldyssian-sh/vmware-sec-assessment/releases)**
+**For detailed release information, see GitHub Releases**

@@ -27,7 +27,7 @@
     PrivateData = @{
         PSData = @{
             Tags = @('VMware', 'Security', 'Compliance', 'CIS', 'STIG', 'Assessment', 'vSphere')
-            LicenseUri = 'https://github.com/uldyssian-sh/vmware-sec-assessment/blob/main/LICENSE'
+            LicenseUri = 'https://opensource.org/licenses/MIT'
             ProjectUri = 'https://github.com/uldyssian-sh/vmware-sec-assessment'
             ReleaseNotes = 'Initial release of VMware Security Assessment Framework'
         }

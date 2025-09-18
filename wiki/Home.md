@@ -183,9 +183,9 @@ Welcome to the comprehensive documentation for the VMware Security Assessment Fr
 
 ## 📞 Need Help?
 
-- **Documentation Issues**: [Report here](https://github.com/uldyssian-sh/vmware-sec-assessment/issues/new?template=documentation.md)
-- **Feature Requests**: [Submit here](https://github.com/uldyssian-sh/vmware-sec-assessment/issues/new?template=feature_request.md)
-- **General Questions**: [GitHub Discussions](https://github.com/uldyssian-sh/vmware-sec-assessment/discussions)
+- **Documentation Issues**: Report via GitHub Issues
+- **Feature Requests**: Submit via GitHub Issues
+- **General Questions**: Use GitHub Discussions
 - **Security Issues**: See our [Security Policy](../SECURITY.md)
 
 ---
