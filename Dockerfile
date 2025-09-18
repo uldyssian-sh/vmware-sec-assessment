@@ -1,45 +1,16 @@
-# Multi-stage build for VMware Security Assessment
-FROM mcr.microsoft.com/powershell:7.4-ubuntu-22.04 AS powershell-base
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
-    unzip \
-    git \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install VMware PowerCLI
-RUN pwsh -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name VMware.PowerCLI -Force -AllowClobber"
-
-# Python stage for additional tools
-FROM python:3.11-slim AS python-base
-
-# Install Python dependencies
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
-
-# Final stage
+# Simple single-stage build for VMware Security Assessment
 FROM mcr.microsoft.com/powershell:7.4-ubuntu-22.04
 
-# Copy PowerShell modules from powershell-base
-COPY --from=powershell-base /root/.local/share/powershell/Modules /root/.local/share/powershell/Modules
-
-# Copy Python and its packages from python-base
-COPY --from=python-base /usr/local/lib/python3.11 /usr/local/lib/python3.11
-COPY --from=python-base /usr/local/bin/python* /usr/local/bin/
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
-    unzip \
     git \
-    ca-certificates \
-    python3 \
-    python3-pip \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Install VMware PowerCLI
+RUN pwsh -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name VMware.PowerCLI -Force -AllowClobber -Scope AllUsers"
 
 # Create application directory
 WORKDIR /app
