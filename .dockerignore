@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github/
+.workflow-trigger
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+test-results.xml
+coverage.xml
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+temp/
+tmp/
+
+# Build artifacts
+build/
+dist/
+out/
+
+# Cache
+.cache/
+node_modules/
+
+# Environment files
+.env*
+
+# Reports (may contain sensitive data)
+reports/
+
+# Package files
+*.nupkg
+*.zip
+*.7z
