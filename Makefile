@@ -63,22 +63,7 @@ archive: build ## Create distribution archive
 	@tar -czf dist/vmware-security-assessment-$(shell date +%Y%m%d).tar.gz -C build/ .
 	@echo "Archive created in dist/ directory"
 
-# Docker operations
-docker-build: ## Build Docker image
-	@echo "Building Docker image..."
-	@docker build -t vmware-security-assessment:latest .
-	@docker build -t vmware-security-assessment:$(shell date +%Y%m%d) .
 
-docker-test: ## Test Docker image
-	@echo "Testing Docker image..."
-	@docker run --rm vmware-security-assessment:latest pwsh -Command "Get-Module -ListAvailable VMware.PowerCLI"
-
-docker-push: ## Push Docker image to registry (requires DOCKER_REGISTRY environment variable)
-	@echo "Pushing Docker image to registry..."
-	@docker tag vmware-security-assessment:latest $(DOCKER_REGISTRY)/vmware-security-assessment:latest
-	@docker tag vmware-security-assessment:latest $(DOCKER_REGISTRY)/vmware-security-assessment:$(shell date +%Y%m%d)
-	@docker push $(DOCKER_REGISTRY)/vmware-security-assessment:latest
-	@docker push $(DOCKER_REGISTRY)/vmware-security-assessment:$(shell date +%Y%m%d)
 
 # Documentation
 docs: ## Generate documentation
@@ -98,7 +83,7 @@ clean: ## Clean build artifacts and temporary files
 	@rm -f unit-test-results.xml
 	@rm -f integration-test-results.xml
 	@rm -f *.log
-	@docker system prune -f || true
+
 	@echo "Cleanup completed"
 
 # Development helpers
