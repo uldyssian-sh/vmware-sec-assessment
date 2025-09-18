@@ -43,12 +43,9 @@ desktop.ini
 build/
 dist/
 out/
-bin/
-obj/
 
-# Package files
+# PowerShell packages
 *.nupkg
-*.nuspec
 
 # Temporary files
 temp/

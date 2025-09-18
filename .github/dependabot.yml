@@ -29,16 +29,4 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
     
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "09:00"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+

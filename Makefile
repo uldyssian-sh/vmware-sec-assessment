@@ -138,6 +138,11 @@ bump-version: ## Bump version (requires VERSION environment variable)
 all: clean install lint test build ## Run complete build pipeline
 	@echo "Complete build pipeline finished successfully!"
 
+validate-module: ## Validate PowerShell module
+	@echo "Validating PowerShell module..."
+	@pwsh -Command "Test-ModuleManifest -Path VMwareSecAssessment.psd1"
+	@echo "Module validation completed!"
+
 quick-test: lint test-unit ## Quick validation for development
 	@echo "Quick test completed!"
 
@@ -147,7 +152,6 @@ info: ## Show environment information
 	@echo "======================="
 	@echo "PowerShell Version: $$(pwsh -Command '$$PSVersionTable.PSVersion')"
 	@echo "Python Version: $$(python --version 2>&1)"
-	@echo "Docker Version: $$(docker --version 2>/dev/null || echo 'Docker not available')"
 	@echo "Git Version: $$(git --version)"
 	@echo "Operating System: $$(uname -s 2>/dev/null || echo 'Windows')"
 	@echo "Architecture: $$(uname -m 2>/dev/null || echo 'Unknown')"

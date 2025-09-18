@@ -52,14 +52,15 @@ Start-VMwareSecurityAssessment -VCenter "vcenter.example.com" -Standard "CIS"
 Export-SecurityReport -Assessment $result -OutputPath "./reports"
 ```
 
-## 🐳 Docker Usage
+## 📋 Available Commands
 
 ```bash
-# Build image
-docker build -t vmware-security-assessment .
-
-# Run container
-docker run -it vmware-security-assessment
+# Development commands
+make install    # Install dependencies
+make test       # Run tests
+make lint       # Code analysis
+make clean      # Clean build artifacts
+make help       # Show all commands
 ```
 
 
