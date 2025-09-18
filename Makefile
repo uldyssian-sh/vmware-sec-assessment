@@ -60,25 +60,25 @@ build: ## Build the module for distribution
 archive: build ## Create distribution archive
 	@echo "Creating distribution archive..."
 	@mkdir -p dist/
-	@tar -czf dist/vmware-sec-assessment-$(shell date +%Y%m%d).tar.gz -C build/ .
+	@tar -czf dist/vmware-security-assessment-$(shell date +%Y%m%d).tar.gz -C build/ .
 	@echo "Archive created in dist/ directory"
 
 # Docker operations
 docker-build: ## Build Docker image
 	@echo "Building Docker image..."
-	@docker build -t vmware-sec-assessment:latest .
-	@docker build -t vmware-sec-assessment:$(shell date +%Y%m%d) .
+	@docker build -t vmware-security-assessment:latest .
+	@docker build -t vmware-security-assessment:$(shell date +%Y%m%d) .
 
 docker-test: ## Test Docker image
 	@echo "Testing Docker image..."
-	@docker run --rm vmware-sec-assessment:latest pwsh -Command "Get-Module -ListAvailable VMware.PowerCLI"
+	@docker run --rm vmware-security-assessment:latest pwsh -Command "Get-Module -ListAvailable VMware.PowerCLI"
 
 docker-push: ## Push Docker image to registry (requires DOCKER_REGISTRY environment variable)
 	@echo "Pushing Docker image to registry..."
-	@docker tag vmware-sec-assessment:latest $(DOCKER_REGISTRY)/vmware-sec-assessment:latest
-	@docker tag vmware-sec-assessment:latest $(DOCKER_REGISTRY)/vmware-sec-assessment:$(shell date +%Y%m%d)
-	@docker push $(DOCKER_REGISTRY)/vmware-sec-assessment:latest
-	@docker push $(DOCKER_REGISTRY)/vmware-sec-assessment:$(shell date +%Y%m%d)
+	@docker tag vmware-security-assessment:latest $(DOCKER_REGISTRY)/vmware-security-assessment:latest
+	@docker tag vmware-security-assessment:latest $(DOCKER_REGISTRY)/vmware-security-assessment:$(shell date +%Y%m%d)
+	@docker push $(DOCKER_REGISTRY)/vmware-security-assessment:latest
+	@docker push $(DOCKER_REGISTRY)/vmware-security-assessment:$(shell date +%Y%m%d)
 
 # Documentation
 docs: ## Generate documentation

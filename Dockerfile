@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . .
 
 # Set permissions
-RUN chmod +x vmware-sec-assessment.ps1
+RUN chmod +x *.ps1
 
 # Create non-root user for security
 RUN useradd -m -s /bin/bash vmware && \
@@ -24,12 +24,10 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD pwsh -Command "Get-Module -ListAvailable VMware.PowerCLI | Select-Object -First 1" || exit 1
 
 # Default command
-CMD ["pwsh", "-File", "vmware-sec-assessment.ps1", "-Help"]
+CMD ["pwsh", "-Command", "Get-Help Start-VMwareSecurityAssessment"]
 
 # Labels for metadata
 LABEL maintainer="uldyssian-sh" \
       version="1.0.0" \
       description="VMware Security Assessment Framework" \
-      org.opencontainers.image.source="https://github.com/uldyssian-sh/vmware-sec-assessment" \
-      org.opencontainers.image.documentation="https://github.com/uldyssian-sh/vmware-sec-assessment/blob/main/README.md" \
       org.opencontainers.image.licenses="MIT"

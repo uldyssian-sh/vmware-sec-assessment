@@ -26,7 +26,7 @@ jobs:
 <!DOCTYPE html>
 <html>
 <head>
-    <title>vmware-sec-assessment - Development</title>
+    <title>VMware Security Assessment - Development</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; background: #f0f8ff; }
         .dev-banner { background: #ffd700; padding: 10px; text-align: center; font-weight: bold; }
@@ -38,7 +38,7 @@ jobs:
 <body>
     <div class="dev-banner">🚧 DEVELOPMENT ENVIRONMENT 🚧</div>
     <div class="container">
-        <h1>vmware-sec-assessment</h1>
+        <h1>VMware Security Assessment</h1>
         <p class="status">✅ Development deployment successful</p>
         <p><strong>Environment:</strong> Development</p>
         <p><strong>Repository:</strong> ${{ github.repository }}</p>
