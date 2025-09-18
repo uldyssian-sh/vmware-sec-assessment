@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 RUN pwsh -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name VMware.PowerCLI -Force -AllowClobber"
 
 # Python stage for additional tools
-FROM python:3.11-slim AS python-base
+FROM python:3.13-slim AS python-base
 
 # Install Python dependencies
 COPY requirements.txt /tmp/requirements.txt
