@@ -57,12 +57,11 @@ build: ## Build the module for distribution
 	@cp LICENSE build/
 	@echo "Build completed in build/ directory"
 
-package: build ## Create distribution packages
-	@echo "Creating distribution packages..."
+archive: build ## Create distribution archive
+	@echo "Creating distribution archive..."
 	@mkdir -p dist/
 	@tar -czf dist/vmware-sec-assessment-$(shell date +%Y%m%d).tar.gz -C build/ .
-	@zip -r dist/vmware-sec-assessment-$(shell date +%Y%m%d).zip build/
-	@echo "Packages created in dist/ directory"
+	@echo "Archive created in dist/ directory"
 
 # Docker operations
 docker-build: ## Build Docker image

@@ -64,7 +64,6 @@ reports/*.csv
 
 # Cache
 .cache/
-node_modules/
 
 # Environment files
 .env
