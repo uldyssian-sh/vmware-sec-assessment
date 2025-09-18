@@ -1,6 +1,6 @@
 ﻿<#
 ================================================================================
- Name     : vmware-sec-assessment.ps1
+ Name     : VMware-Security-Assessment.ps1
  Purpose  : Read-only vSphere 8 Security Assessment (PowerCLI).
             Implements a set of hardening/compliance checks for ESXi hosts,
             networking, logging, and VM settings. Prints colorized results.
@@ -23,7 +23,7 @@
  - Scope: All ESXi hosts and ALL VMs in the connected vCenter.
 
  Run the script:
- .\vmware-sec-assessment.ps1 -vCenter "vcsa.lab.local"
+ .\VMware-Security-Assessment.ps1 -vCenter "vcsa.lab.local"
 ================================================================================
 #>
 
