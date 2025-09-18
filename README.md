@@ -53,11 +53,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ## 📚 Documentation
 
-- [Installation Guide](docs/installation.md)
-- [Configuration Reference](docs/configuration.md)
-- [API Documentation](docs/api.md)
-- [Troubleshooting](docs/troubleshooting.md)
+- [Quick Start Guide](docs/QUICK_START.md)
 - [Security Policy](SECURITY.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## 🤝 Contributing
 
@@ -69,8 +68,8 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ## 🆘 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/REPO_NAME/issues)
-- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/REPO_NAME/wiki)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/uldyssian-sh/vmware-sec-assessment/discussions)
 
 ---
 
