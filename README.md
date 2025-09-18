@@ -1,19 +1,20 @@
-# vmware sec assessment
+# VMware Security Assessment
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
 [![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/stargazers)
+[![CI](https://github.com/uldyssian-sh/vmware-sec-assessment/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
 [![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
 
 ## 🎯 Overview
 
-Professional vmware sec assessment solution with enterprise-grade automation and security features.
+Comprehensive VMware vSphere security assessment framework with enterprise-grade automation, compliance checking, and reporting capabilities.
 
 ## 📊 Repository Stats
 
-- **Files:**       46
-- **Technologies:** PowerShell YAML
-- **Type:** Infrastructure Automation
+- **Type:** PowerShell Security Module
+- **Technologies:** PowerShell, VMware PowerCLI, Python
+- **Standards:** CIS, STIG, NIST
 - **Status:** Production Ready
 
 ## ✨ Features
@@ -34,20 +35,31 @@ Professional vmware sec assessment solution with enterprise-grade automation and
 git clone https://github.com/uldyssian-sh/vmware-sec-assessment.git
 cd vmware-sec-assessment
 
-# Setup environment
-chmod +x setup.sh
-./setup.sh
+# Install dependencies
+make install
 ```
 
-
-## ⚡ PowerShell Scripts
+## ⚡ PowerShell Usage
 
 ```powershell
-# Set execution policy
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# Import the module
+Import-Module .\VMwareSecAssessment.psd1
 
-# Run main script
-.\main.ps1
+# Run security assessment
+Start-VMwareSecurityAssessment -VCenter "vcenter.example.com" -Standard "CIS"
+
+# Generate report
+Export-SecurityReport -Assessment $result -OutputPath "./reports"
+```
+
+## 🐳 Docker Usage
+
+```bash
+# Build image
+docker build -t vmware-security-assessment .
+
+# Run container
+docker run -it vmware-security-assessment
 ```
 
 
