@@ -1,15 +1,7 @@
-# Simple single-stage build for VMware Security Assessment
+# Minimal VMware Security Assessment container
 FROM mcr.microsoft.com/powershell:7.4-ubuntu-22.04
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
-    git \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
-
-# Install VMware PowerCLI
+# Install VMware PowerCLI only
 RUN pwsh -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name VMware.PowerCLI -Force -AllowClobber -Scope AllUsers"
 
 # Create application directory
