@@ -2,19 +2,14 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (e.g., v1.0.0)'
-        required: true
-        type: string
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 permissions:
-  contents: write
-  packages: write
+  contents: read
   security-events: write
+  actions: read
 
 jobs:
   create-release:
