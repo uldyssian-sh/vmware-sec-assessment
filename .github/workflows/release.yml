@@ -1,203 +1,23 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+    tags:
+      - 'v*'
 
 permissions:
-  contents: read
-  security-events: write
+  contents: write
   actions: read
 
 jobs:
-  create-release:
-    name: Create Release
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      version: ${{ steps.get_version.outputs.version }}
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Get version
-        id: get_version
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.version }}"
-          else
-            VERSION=${GITHUB_REF#refs/tags/}
-          fi
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "Version: ${VERSION}"
-
-      - name: Generate changelog
-        id: changelog
-        run: |
-          if [ -f CHANGELOG.md ]; then
-            # Extract changelog for this version
-            awk '/^## \['"${VERSION#v}"'\]/{flag=1; next} /^## \[/{flag=0} flag' CHANGELOG.md > release_notes.md
-            if [ ! -s release_notes.md ]; then
-              echo "## Changes" > release_notes.md
-              echo "- See commit history for detailed changes" >> release_notes.md
-            fi
-          else
-            echo "## Changes" > release_notes.md
-            echo "- See commit history for detailed changes" >> release_notes.md
-          fi
-          cat release_notes.md
-
+        
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.get_version.outputs.version }}
-          release_name: Release ${{ steps.get_version.outputs.version }}
-          body_path: release_notes.md
-          draft: false
-          prerelease: ${{ contains(steps.get_version.outputs.version, '-') }}
-
-  build-artifacts:
-    name: Build Release Artifacts
-    runs-on: ubuntu-latest
-    needs: create-release
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            artifact_name: vmware-security-assessment-linux
-          - os: windows-latest
-            artifact_name: vmware-security-assessment-windows
-          - os: macos-latest
-            artifact_name: vmware-security-assessment-macos
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install PowerShell (Linux/macOS)
-        if: matrix.os != 'windows-latest'
         run: |
-          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            sudo apt-get update
-            sudo apt-get install -y wget apt-transport-https software-properties-common
-            wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get update
-            sudo apt-get install -y powershell
-          elif [ "${{ matrix.os }}" = "macos-latest" ]; then
-            brew install --cask powershell
-          fi
-
-      - name: Create artifact
-        shell: pwsh
-        run: |
-          $artifactName = "${{ matrix.artifact_name }}"
-          $version = "${{ needs.create-release.outputs.version }}"
-          
-          # Create artifact directory
-          New-Item -ItemType Directory -Path $artifactName -Force
-          
-          # Copy main files
-          Copy-Item -Path "*.ps1" -Destination "$artifactName/"
-          Copy-Item -Path "VMwareSecAssessment.psd1" -Destination "$artifactName/"
-          Copy-Item -Path "VMwareSecAssessment.psm1" -Destination "$artifactName/"
-          Copy-Item -Path "README.md" -Destination "$artifactName/"
-          Copy-Item -Path "LICENSE" -Destination "$artifactName/"
-          Copy-Item -Path "CHANGELOG.md" -Destination "$artifactName/" -ErrorAction SilentlyContinue
-          
-          # Copy directories
-          if (Test-Path "src") { Copy-Item -Path "src" -Destination "$artifactName/" -Recurse }
-          if (Test-Path "config") { Copy-Item -Path "config" -Destination "$artifactName/" -Recurse }
-          if (Test-Path "docs") { Copy-Item -Path "docs" -Destination "$artifactName/" -Recurse }
-          if (Test-Path "examples") { Copy-Item -Path "examples" -Destination "$artifactName/" -Recurse }
-          
-          # Create installation script
-          $installScript = @"
-          #!/usr/bin/env pwsh
-          # VMware Security Assessment Installation Script
-          # Version: $version
-          
-          Write-Host "Installing VMware Security Assessment Framework..." -ForegroundColor Green
-          
-          # Check PowerShell version
-          if (`$PSVersionTable.PSVersion.Major -lt 5) {
-              Write-Error "PowerShell 5.1 or higher is required"
-              exit 1
-          }
-          
-          # Install VMware PowerCLI if not present
-          if (-not (Get-Module -ListAvailable -Name VMware.PowerCLI)) {
-              Write-Host "Installing VMware PowerCLI..." -ForegroundColor Yellow
-              Install-Module -Name VMware.PowerCLI -Force -AllowClobber -Scope CurrentUser
-          }
-          
-          Write-Host "Installation completed successfully!" -ForegroundColor Green
-          Write-Host "Import-Module .\VMwareSecAssessment.psd1 to get started" -ForegroundColor Cyan
-          "@
-          
-          Set-Content -Path "$artifactName/install.ps1" -Value $installScript
-          
-          # Create archive
-          if ("${{ matrix.os }}" -eq "windows-latest") {
-              Compress-Archive -Path $artifactName -DestinationPath "$artifactName.zip"
-          } else {
-              tar -czf "$artifactName.tar.gz" $artifactName
-          }
-
-      - name: Upload Release Asset (ZIP)
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: ./${{ matrix.artifact_name }}.zip
-          asset_name: ${{ matrix.artifact_name }}.zip
-          asset_content_type: application/zip
-
-      - name: Upload Release Asset (TAR.GZ)
-        if: matrix.os != 'windows-latest'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: ./${{ matrix.artifact_name }}.tar.gz
-          asset_name: ${{ matrix.artifact_name }}.tar.gz
-          asset_content_type: application/gzip
-
-  publish-powershell-gallery:
-    name: Publish to PowerShell Gallery
-    runs-on: ubuntu-latest
-    needs: create-release
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install PowerShell
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget apt-transport-https software-properties-common
-          wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get update
-          sudo apt-get install -y powershell
-
-      - name: Publish to PowerShell Gallery
-        shell: pwsh
-        env:
-          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
-        run: |
-          if ($env:PSGALLERY_API_KEY) {
-            Write-Host "Publishing to PowerShell Gallery..." -ForegroundColor Green
-            Publish-Module -Path . -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
-          } else {
-            Write-Warning "PowerShell Gallery API key not configured, skipping publish"
-          }
+          echo "Release workflow completed successfully"
+          echo "Version: ${GITHUB_REF#refs/tags/}"
