@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # VMware Security Assessment Module Tests
 # This file contains comprehensive tests for the VMware Security Assessment PowerShell module
 

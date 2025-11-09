@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # Integration Tests for VMware Security Assessment
 # These tests require a live vCenter environment for full validation
 

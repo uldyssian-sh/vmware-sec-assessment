@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 #Requires -Version 5.1
 
 <#

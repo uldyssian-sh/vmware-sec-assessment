@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 #Requires -Modules VMware.PowerCLI, VMwareSecAssessment
 
 <#
