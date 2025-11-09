@@ -35,3 +35,4 @@ def export_json_report(assessment_data: Dict[str, Any], filename: str) -> None:
     """Export assessment data to JSON file."""
     with open(filename, 'w') as f:
         json.dump(assessment_data, f, indent=2)# Updated Sun Nov  9 12:49:49 CET 2025
+# Updated Sun Nov  9 12:52:29 CET 2025

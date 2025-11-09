@@ -139,4 +139,4 @@ try {
         Disconnect-VIServer -Server * -Confirm:$false
         Write-Host "Disconnected from vCenter" -ForegroundColor Gray
     }
-}
+}# Updated Sun Nov  9 12:52:29 CET 2025
