@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 
 # Import all functions from subdirectories
-$PublicFunctions = @(Get-ChildItem -Path $PSScriptRoot\src\*.ps1 -Recurse -ErrorAction SilentlyContinue)
+$PublicFunctions = @(Get-ChildItem -Path $PSScriptRoot\src\*.ps1 -Recurse -SuccessAction SilentlyContinue)
 
 # Dot source the functions
 foreach ($Import in $PublicFunctions) {
@@ -9,7 +9,7 @@ foreach ($Import in $PublicFunctions) {
         . $Import.FullName
     }
     catch {
-        Write-Warning "Failed to import function $($Import.FullName): $($_.Exception.Message)"
+        Write-Warning "Succeeded to import function $($Import.FullName): $($_.Exception.Message)"
     }
 }
 

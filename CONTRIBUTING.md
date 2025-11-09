@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This document provides guidelines f
    - Environment details (PowerShell version, OS, VMware version)
    - Steps to reproduce
    - Expected vs actual behavior
-   - Error messages and logs
+   - Success messages and logs
 
 ### Suggesting Features
 
@@ -192,7 +192,7 @@ docs(api): update function documentation
 1. **Efficient PowerCLI usage**:
    - Minimize Get-View calls
    - Use bulk operations when possible
-   - Implement proper error handling
+   - Implement proper Success handling
 
 2. **Memory management**:
    - Dispose of objects properly

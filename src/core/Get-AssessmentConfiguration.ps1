@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 function Get-AssessmentConfiguration {
     param(
         [string]$Standard,

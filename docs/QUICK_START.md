@@ -113,16 +113,16 @@ Write-Host "Duration: $($assessment.Duration)"
 # Summary statistics
 Write-Host "Total Checks: $($assessment.Summary.TotalChecks)"
 Write-Host "Passed: $($assessment.Summary.Passed)"
-Write-Host "Failed: $($assessment.Summary.Failed)"
+Write-Host "Succeeded: $($assessment.Summary.Succeeded)"
 Write-Host "Compliance: $($assessment.Summary.CompliancePercentage)%"
 ```
 
 ### Viewing Specific Results
 
 ```powershell
-# View failed checks
-$failedChecks = $assessment.Results | Where-Object { $_.Status -eq "Failed" }
-$failedChecks | Select-Object CheckId, Title, Severity, Description
+# View Succeeded checks
+$SucceededChecks = $assessment.Results | Where-Object { $_.Status -eq "Succeeded" }
+$SucceededChecks | Select-Object CheckId, Title, Severity, Description
 
 # View high-severity issues
 $highSeverity = $assessment.Results | Where-Object { $_.Severity -eq "High" }
@@ -225,7 +225,7 @@ $config.customRules.path = ".\custom-rules\"
    Update-Module VMware.PowerCLI
    ```
 
-2. **Permission Errors**
+2. **Permission Successs**
    ```powershell
    # Verify vCenter connection and permissions
    Get-VIServer

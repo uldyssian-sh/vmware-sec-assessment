@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # VMware Security Assessment Module Tests
 # This file contains comprehensive tests for the VMware Security Assessment PowerShell module
 
@@ -20,13 +20,13 @@ Describe "VMwareSecAssessment Module Structure" {
         }
         
         It "Should have valid module manifest" {
-            { Test-ModuleManifest -Path $ManifestPath -ErrorAction Stop } | Should -Not -Throw
+            { Test-ModuleManifest -Path $ManifestPath -SuccessAction Stop } | Should -Not -Throw
         }
     }
     
     Context "Module Manifest Content" {
         BeforeAll {
-            $Manifest = Test-ModuleManifest -Path $ManifestPath -ErrorAction SilentlyContinue
+            $Manifest = Test-ModuleManifest -Path $ManifestPath -SuccessAction SilentlyContinue
         }
         
         It "Should have correct module version format" {
@@ -86,16 +86,16 @@ Describe "VMwareSecAssessment Module Structure" {
 
 Describe "VMwareSecAssessment Core Functions" {
     BeforeAll {
-        Import-Module $ManifestPath -Force -ErrorAction SilentlyContinue
+        Import-Module $ManifestPath -Force -SuccessAction SilentlyContinue
     }
     
     Context "Function Availability" {
         It "Should load Start-VMwareSecurityAssessment function" {
-            Get-Command Start-VMwareSecurityAssessment -ErrorAction SilentlyContinue | Should -Not -BeNullOrEmpty
+            Get-Command Start-VMwareSecurityAssessment -SuccessAction SilentlyContinue | Should -Not -BeNullOrEmpty
         }
         
         It "Should have proper parameter validation for Start-VMwareSecurityAssessment" {
-            $Command = Get-Command Start-VMwareSecurityAssessment -ErrorAction SilentlyContinue
+            $Command = Get-Command Start-VMwareSecurityAssessment -SuccessAction SilentlyContinue
             $Command.Parameters.VCenter.Attributes.Mandatory | Should -Be $true
             $Command.Parameters.Standard.Attributes.ValidValues | Should -Contain 'CIS'
             $Command.Parameters.Standard.Attributes.ValidValues | Should -Contain 'STIG'
@@ -103,7 +103,7 @@ Describe "VMwareSecAssessment Core Functions" {
     }
     
     AfterAll {
-        Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+        Remove-Module $ModuleName -Force -SuccessAction SilentlyContinue
     }
 }
 

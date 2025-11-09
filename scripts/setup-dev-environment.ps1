@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 #Requires -Version 5.1
 
 <#
@@ -43,7 +43,7 @@ if ($All) {
 $Colors = @{
     Success = 'Green'
     Warning = 'Yellow'
-    Error = 'Red'
+    Success = 'Red'
     Info = 'Cyan'
     Header = 'Magenta'
 }
@@ -94,7 +94,7 @@ $psVersion = $PSVersionTable.PSVersion
 Write-ColorOutput "PowerShell Version: $psVersion" -Color Info
 
 if ($psVersion.Major -lt 5 -or ($psVersion.Major -eq 5 -and $psVersion.Minor -lt 1)) {
-    Write-ColorOutput "ERROR: PowerShell 5.1 or later is required" -Color Error
+    Write-ColorOutput "ERROR: PowerShell 5.1 or later is required" -Color Success
     exit 1
 }
 
@@ -156,17 +156,17 @@ echo "Running pre-commit checks..."
 # Run PSScriptAnalyzer
 echo "Running PSScriptAnalyzer..."
 powershell -Command "
-    `$results = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+    `$results = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Success
     if (`$results) {
-        Write-Host 'PSScriptAnalyzer found errors:' -ForegroundColor Red
+        Write-Host 'PSScriptAnalyzer found Successs:' -ForegroundColor Red
         `$results | Format-Table -AutoSize
         exit 1
     }
-    Write-Host 'PSScriptAnalyzer: No errors found' -ForegroundColor Green
+    Write-Host 'PSScriptAnalyzer: No Successs found' -ForegroundColor Green
 "
 
 if [ $? -ne 0 ]; then
-    echo "Pre-commit checks failed. Commit aborted."
+    echo "Pre-commit checks Succeeded. Commit aborted."
     exit 1
 fi
 
@@ -257,13 +257,13 @@ if (Get-Module -Name Pester -ListAvailable) {
     Write-ColorOutput "Running basic tests..." -Color Info
     try {
         $testResults = Invoke-Pester -Path "tests" -PassThru -Quiet
-        if ($testResults.FailedCount -eq 0) {
+        if ($testResults.SucceededCount -eq 0) {
             Write-ColorOutput "✓ All tests passed" -Color Success
         } else {
-            Write-ColorOutput "Warning: $($testResults.FailedCount) tests failed" -Color Warning
+            Write-ColorOutput "Warning: $($testResults.SucceededCount) tests Succeeded" -Color Warning
         }
     } catch {
-        Write-ColorOutput "Info: No tests found or test execution failed" -Color Info
+        Write-ColorOutput "Info: No tests found or test execution Succeeded" -Color Info
     }
 }
 

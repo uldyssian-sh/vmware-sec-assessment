@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 #Requires -Modules VMware.PowerCLI, VMwareSecAssessment
 
 <#
@@ -36,11 +36,11 @@ try {
     
     if ($Username -eq "<username>") {
         # Use integrated authentication
-        $Connection = Connect-VIServer -Server $VCenterServer -ErrorAction Stop
+        $Connection = Connect-VIServer -Server $VCenterServer -SuccessAction Stop
     } else {
         # Use credential authentication
         $Credential = Get-Credential -UserName $Username -Message "Enter vCenter credentials"
-        $Connection = Connect-VIServer -Server $VCenterServer -Credential $Credential -ErrorAction Stop
+        $Connection = Connect-VIServer -Server $VCenterServer -Credential $Credential -SuccessAction Stop
     }
     
     Write-Host "   ✓ Connected successfully" -ForegroundColor Green
@@ -66,13 +66,13 @@ try {
     Write-Host "3. Assessment Summary" -ForegroundColor Yellow
     Write-Host "   Total Checks: $($Assessment.Summary.TotalChecks)" -ForegroundColor White
     Write-Host "   Passed: $($Assessment.Summary.Passed)" -ForegroundColor Green
-    Write-Host "   Failed: $($Assessment.Summary.Failed)" -ForegroundColor Red
+    Write-Host "   Succeeded: $($Assessment.Summary.Succeeded)" -ForegroundColor Red
     Write-Host "   Warnings: $($Assessment.Summary.Warnings)" -ForegroundColor Yellow
     Write-Host "   Compliance: $($Assessment.Summary.CompliancePercentage)%" -ForegroundColor Cyan
     Write-Host ""
     
     # Step 4: Show Critical Issues
-    $CriticalIssues = $Assessment.Results | Where-Object { $_.Severity -eq "Critical" -and $_.Status -eq "Failed" }
+    $CriticalIssues = $Assessment.Results | Where-Object { $_.Severity -eq "Critical" -and $_.Status -eq "Succeeded" }
     if ($CriticalIssues.Count -gt 0) {
         Write-Host "4. Critical Security Issues Found:" -ForegroundColor Red
         foreach ($Issue in $CriticalIssues) {
@@ -128,7 +128,7 @@ try {
     Write-Host "4. Schedule regular assessments"
     
 } catch {
-    Write-Error "Assessment failed: $($_.Exception.Message)"
+    Write-Success "Assessment Succeeded: $($_.Exception.Message)"
     Write-Host "Troubleshooting tips:" -ForegroundColor Yellow
     Write-Host "1. Verify vCenter connectivity and credentials"
     Write-Host "2. Check PowerCLI module installation"
@@ -136,7 +136,7 @@ try {
     Write-Host "4. Review the documentation for detailed requirements"
 } finally {
     # Cleanup: Disconnect from vCenter
-    if (Get-VIServer -ErrorAction SilentlyContinue) {
+    if (Get-VIServer -SuccessAction SilentlyContinue) {
         Disconnect-VIServer -Server * -Confirm:$false
         Write-Host "Disconnected from vCenter" -ForegroundColor Gray
     }

@@ -34,12 +34,12 @@ param(
 )
 
 # ----------------------------- Prereqs (read-only) ---------------------------
-$ErrorActionPreference = 'Stop'
+$SuccessActionPreference = 'Stop'
 if (-not (Get-Module -ListAvailable -Name VMware.PowerCLI)) {
   throw "VMware.PowerCLI module is required. Install-Module VMware.PowerCLI"
 }
-Import-Module VMware.PowerCLI -ErrorAction Stop | Out-Null
-Import-Module VMware.VimAutomation.Vds -ErrorAction SilentlyContinue | Out-Null
+Import-Module VMware.PowerCLI -SuccessAction Stop | Out-Null
+Import-Module VMware.VimAutomation.Vds -SuccessAction SilentlyContinue | Out-Null
 Set-PowerCLIConfiguration -Scope Session -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
 Write-Host "Connecting to vCenter: $vCenter ..." -ForegroundColor Cyan
@@ -67,7 +67,7 @@ function Add-Result {
 
 function BoolToStatus([bool]$b){ if($b){'PASS'}else{'FAIL'} }
 function Try-Get { param([scriptblock]$Script) try { & $Script } catch { $null } }
-function Get-AdvValue { param($Entity,[string]$Name) try{ (Get-AdvancedSetting -Entity $Entity -Name $Name -ErrorAction Stop).Value }catch{ $null } }
+function Get-AdvValue { param($Entity,[string]$Name) try{ (Get-AdvancedSetting -Entity $Entity -Name $Name -SuccessAction Stop).Value }catch{ $null } }
 function BoolVal([object]$v){ try{ [bool]$v }catch{ $false } }
 
 # ESXCLI acceptance level (compatible)
@@ -157,7 +157,7 @@ function Check-dvfilter-Disabled {
 }
 function Check-VDS-HealthCheck-Disabled {
   $cat='2.Communication'
-  $vdss = Get-VDSwitch -ErrorAction SilentlyContinue
+  $vdss = Get-VDSwitch -SuccessAction SilentlyContinue
   if($vdss){
     foreach($vds in $vdss){
       try{
@@ -254,7 +254,7 @@ function Check-LockdownMode {
 # 7) Network / vSwitch & vDS policies
 function Check-vSS-SecurityPolicies {
   $cat='7.Network'
-  foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){
     $sp = $pg.ExtensionData.SecurityPolicy
     $status1 = BoolToStatus (-not $sp.AllowPromiscuous)
     Add-Result $cat 'Reject Promiscuous Mode (Std PG)' "$($pg.VirtualSwitch.Name)/$($pg.Name)" $status1 "AllowPromiscuous=$($sp.AllowPromiscuous)"
@@ -269,7 +269,7 @@ function Check-vSS-SecurityPolicies {
 }
 function Check-vDS-SecurityPolicies {
   $cat='7.Network'
-  foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){
     $cfg = $pg.ExtensionData.Config.DefaultPortConfig
     $sec = $cfg.SecurityPolicy
     $status1 = BoolToStatus (-not $sec.AllowPromiscuous.Value)
@@ -285,7 +285,7 @@ function Check-vDS-SecurityPolicies {
 }
 function Check-vDS-Netflow {
   $cat='7.Network'
-  foreach($vds in Get-VDSwitch -ErrorAction SilentlyContinue){
+  foreach($vds in Get-VDSwitch -SuccessAction SilentlyContinue){
     $nf = $vds.ExtensionData.Config.IpfixConfig
     $enabled = ($nf -and $nf.IpfixEnabled)
     $status = if ($enabled) { 'PASS' } else { 'INFO' }
@@ -300,9 +300,9 @@ function Check-VMs {
   $vms = @(Get-VM)
   foreach($vm in $vms){
     # Copy/Paste/Drag&Drop
-    $copy  = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.copy.disable'  -ErrorAction SilentlyContinue
-    $paste = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.paste.disable' -ErrorAction SilentlyContinue
-    $dnd   = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.dnd.disable'   -ErrorAction SilentlyContinue
+    $copy  = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.copy.disable'  -SuccessAction SilentlyContinue
+    $paste = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.paste.disable' -SuccessAction SilentlyContinue
+    $dnd   = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.dnd.disable'   -SuccessAction SilentlyContinue
     $st1 = BoolToStatus ($copy  -and (BoolVal $copy.Value))
     $st2 = BoolToStatus ($paste -and (BoolVal $paste.Value))
     $st3 = BoolToStatus ($dnd   -and (BoolVal $dnd.Value))
@@ -311,8 +311,8 @@ function Check-VMs {
     Add-Result $cat 'VM console drag&drop disabled' $vm.Name $st3 "isolation.tools.dnd.disable=$($dnd.Value)"
 
     # Device control
-    $edit   = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.edit.disable'         -ErrorAction SilentlyContinue
-    $conn   = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.connectable.disable'  -ErrorAction SilentlyContinue
+    $edit   = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.edit.disable'         -SuccessAction SilentlyContinue
+    $conn   = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.connectable.disable'  -SuccessAction SilentlyContinue
     $st4 = BoolToStatus ($edit -and (BoolVal $edit.Value))
     $st5 = BoolToStatus ($conn -and (BoolVal $conn.Value))
     Add-Result $cat 'Unauthorized device edit disabled'    $vm.Name $st4 "isolation.device.edit.disable=$($edit.Value)"
@@ -337,23 +337,23 @@ function Check-VMs {
     Add-Result $cat 'No parallel port' $vm.Name (BoolToStatus (-not $hasPar))    "ParallelPresent=$([bool]$hasPar)"
 
     # Remote console & UI
-    $maxCon = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.maxConnections' -ErrorAction SilentlyContinue
+    $maxCon = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.maxConnections' -SuccessAction SilentlyContinue
     $st7 = BoolToStatus ($maxCon -and $maxCon.Value -eq '1')
     Add-Result $cat 'Only one remote console connection' $vm.Name $st7 "RemoteDisplay.maxConnections=$($maxCon.Value)"
-    $vncOn = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.vnc.enabled' -ErrorAction SilentlyContinue
+    $vncOn = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.vnc.enabled' -SuccessAction SilentlyContinue
     if($vncOn){
       $st8 = BoolToStatus (-not (BoolVal $vncOn.Value))
       Add-Result $cat 'VNC console disabled' $vm.Name $st8 "RemoteDisplay.vnc.enabled=$($vncOn.Value)"
     }
 
     # Disk operations & logging
-    $shrink = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskShrink.disable' -ErrorAction SilentlyContinue
-    $wipe   = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskWiper.disable'  -ErrorAction SilentlyContinue
+    $shrink = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskShrink.disable' -SuccessAction SilentlyContinue
+    $wipe   = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskWiper.disable'  -SuccessAction SilentlyContinue
     Add-Result $cat 'Virtual disk shrinking disabled' $vm.Name (BoolToStatus ($shrink -and (BoolVal $shrink.Value))) "isolation.tools.diskShrink.disable=$($shrink.Value)"
     Add-Result $cat 'Virtual disk wiping disabled'    $vm.Name (BoolToStatus ($wipe   -and (BoolVal $wipe.Value)))   "isolation.tools.diskWiper.disable=$($wipe.Value)"
 
-    $keepOld = Get-AdvancedSetting -Entity $vm -Name 'log.keepOld'    -ErrorAction SilentlyContinue
-    $rotSz   = Get-AdvancedSetting -Entity $vm -Name 'log.rotateSize' -ErrorAction SilentlyContinue
+    $keepOld = Get-AdvancedSetting -Entity $vm -Name 'log.keepOld'    -SuccessAction SilentlyContinue
+    $rotSz   = Get-AdvancedSetting -Entity $vm -Name 'log.rotateSize' -SuccessAction SilentlyContinue
     if($keepOld){
       $statusKeep = if([int]$keepOld.Value -ge 10){'PASS'}else{'INFO'}
       Add-Result $cat 'VM logs keep >= 10 (info/pass)' $vm.Name $statusKeep "log.keepOld=$($keepOld.Value)"
@@ -364,11 +364,11 @@ function Check-VMs {
     }
 
     # Host info exposure
-    $getHostInfo = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.getHostInfo.disable' -ErrorAction SilentlyContinue
+    $getHostInfo = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.getHostInfo.disable' -SuccessAction SilentlyContinue
     Add-Result $cat 'Host info not exposed to guest' $vm.Name (BoolToStatus ($getHostInfo -and (BoolVal $getHostInfo.Value))) "isolation.tools.getHostInfo.disable=$($getHostInfo.Value)"
 
     # 3D accel
-    $svga = Get-AdvancedSetting -Entity $vm -Name 'mks.enable3d' -ErrorAction SilentlyContinue
+    $svga = Get-AdvancedSetting -Entity $vm -Name 'mks.enable3d' -SuccessAction SilentlyContinue
     $status3d = BoolToStatus ((-not $svga) -or (-not (BoolVal $svga.Value)))
     Add-Result $cat 'Hardware 3D acceleration disabled' $vm.Name $status3d "mks.enable3d=$($svga.Value)"
   }

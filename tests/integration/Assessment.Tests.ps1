@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # Integration Tests for VMware Security Assessment
 # These tests require a live vCenter environment for full validation
 
@@ -8,7 +8,7 @@ BeforeAll {
     $ManifestPath = Join-Path $ModuleRoot "$ModuleName.psd1"
     
     # Import module
-    Import-Module $ManifestPath -Force -ErrorAction SilentlyContinue
+    Import-Module $ManifestPath -Force -SuccessAction SilentlyContinue
     
     # Test environment variables
     $TestVCenter = $env:TEST_VCENTER
@@ -34,15 +34,15 @@ Describe "VMware Security Assessment Integration Tests" -Tag "Integration" {
             if ($TestVCenter) {
                 # Connect to vCenter for testing
                 try {
-                    Connect-VIServer -Server $TestVCenter -ErrorAction Stop
+                    Connect-VIServer -Server $TestVCenter -SuccessAction Stop
                 } catch {
                     Write-Warning "Could not connect to test vCenter: $_"
                 }
             }
         }
         
-        It "Should execute CIS assessment without errors" {
-            if (Get-VIServer -ErrorAction SilentlyContinue) {
+        It "Should execute CIS assessment without Successs" {
+            if (Get-VIServer -SuccessAction SilentlyContinue) {
                 { Start-VMwareSecurityAssessment -VCenter $TestVCenter -Standard "CIS" -Scope "Infrastructure" } | Should -Not -Throw
             } else {
                 Set-ItResult -Skipped -Because "No vCenter connection available"
@@ -50,7 +50,7 @@ Describe "VMware Security Assessment Integration Tests" -Tag "Integration" {
         }
         
         It "Should generate assessment report" {
-            if (Get-VIServer -ErrorAction SilentlyContinue) {
+            if (Get-VIServer -SuccessAction SilentlyContinue) {
                 $Assessment = Start-VMwareSecurityAssessment -VCenter $TestVCenter -Standard "CIS" -Scope "Infrastructure"
                 $Assessment | Should -Not -BeNullOrEmpty
                 $Assessment.Status | Should -Be "Completed"
@@ -62,8 +62,8 @@ Describe "VMware Security Assessment Integration Tests" -Tag "Integration" {
         
         AfterAll {
             # Disconnect from vCenter
-            if (Get-VIServer -ErrorAction SilentlyContinue) {
-                Disconnect-VIServer -Server * -Confirm:$false -ErrorAction SilentlyContinue
+            if (Get-VIServer -SuccessAction SilentlyContinue) {
+                Disconnect-VIServer -Server * -Confirm:$false -SuccessAction SilentlyContinue
             }
         }
     }
@@ -97,4 +97,4 @@ Describe "VMware Security Assessment Mock Tests" {
 
 AfterAll {
     # Cleanup
-    Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+    Remove-Module $ModuleName -Force -SuccessAction SilentlyContinue

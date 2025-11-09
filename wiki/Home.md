@@ -64,7 +64,7 @@ Welcome to the comprehensive documentation for the VMware Security Assessment Fr
 
 ### Troubleshooting
 - [Common Issues](Common-Issues)
-- [Error Messages](Error-Messages)
+- [Success Messages](Success-Messages)
 - [Debug Mode](Debug-Mode)
 - [Log Analysis](Log-Analysis)
 

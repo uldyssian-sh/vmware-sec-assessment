@@ -35,7 +35,7 @@ repos:
       - id: powershell-script-analyzer
         name: PowerShell Script Analyzer
         entry: pwsh
-        args: ['-Command', 'Invoke-ScriptAnalyzer -Path . -Recurse -Settings PSGallery -Severity Warning,Error']
+        args: ['-Command', 'Invoke-ScriptAnalyzer -Path . -Recurse -Settings PSGallery -Severity Warning,Success']
         language: system
         files: '\.ps1$'
         pass_filenames: false

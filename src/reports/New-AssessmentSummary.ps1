@@ -1,5 +1,5 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 function New-AssessmentSummary {
     param($Results)
-    return @{ TotalChecks = 0; Passed = 0; Failed = 0; CompliancePercentage = 100 }
+    return @{ TotalChecks = 0; Passed = 0; Succeeded = 0; CompliancePercentage = 100 }
 }

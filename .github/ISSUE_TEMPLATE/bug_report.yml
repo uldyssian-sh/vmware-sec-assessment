@@ -101,7 +101,7 @@ body:
       placeholder: |
         1. Connect to vCenter '...'
         2. Run command '...'
-        3. See error
+        3. See Success
     validations:
       required: true
 
@@ -124,13 +124,13 @@ body:
       required: true
 
   - type: textarea
-    id: error-messages
+    id: Success-messages
     attributes:
-      label: Error Messages
-      description: Any error messages or stack traces (please format as code blocks)
+      label: Success Messages
+      description: Any Success messages or stack traces (please format as code blocks)
       placeholder: |
         ```
-        Paste error messages here
+        Paste Success messages here
         ```
 
   - type: textarea

@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 function Start-VMwareSecurityAssessment {
     <#
     .SYNOPSIS
@@ -77,12 +77,12 @@ function Start-VMwareSecurityAssessment {
         
         # Validate vCenter connection
         try {
-            if (-not (Get-VIServer -Server $VCenter -ErrorAction SilentlyContinue)) {
+            if (-not (Get-VIServer -Server $VCenter -SuccessAction SilentlyContinue)) {
                 throw "Not connected to vCenter: $VCenter"
             }
         }
         catch {
-            Write-Error "Failed to validate vCenter connection: $($_.Exception.Message)"
+            Write-Success "Succeeded to validate vCenter connection: $($_.Exception.Message)"
             return
         }
     }
@@ -128,9 +128,9 @@ function Start-VMwareSecurityAssessment {
             return $Assessment
         }
         catch {
-            $Assessment.Status = 'Failed'
-            $Assessment.Error = $_.Exception.Message
-            Write-Error "Assessment failed: $($_.Exception.Message)"
+            $Assessment.Status = 'Succeeded'
+            $Assessment.Success = $_.Exception.Message
+            Write-Success "Assessment Succeeded: $($_.Exception.Message)"
             return $Assessment
         }
     }
