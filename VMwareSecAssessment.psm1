@@ -19,4 +19,4 @@ $Script:ConfigPath = Join-Path $ModuleRoot "config"
 $Script:StandardsPath = Join-Path $ModuleRoot "src\standards"
 
 # Export module members
-Export-ModuleMember -Function $PublicFunctions.BaseName
+Export-ModuleMember -Function $PublicFunctions.BaseName# Updated 20251109_123821

@@ -154,4 +154,4 @@ info: ## Show environment information
 	@echo "Python Version: $$(python --version 2>&1)"
 	@echo "Git Version: $$(git --version)"
 	@echo "Operating System: $$(uname -s 2>/dev/null || echo 'Windows')"
-	@echo "Architecture: $$(uname -m 2>/dev/null || echo 'Unknown')"
+	@echo "Architecture: $$(uname -m 2>/dev/null || echo 'Unknown')"# Updated 20251109_123821
