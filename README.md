@@ -1,6 +1,5 @@
 # VMware Security Assessment
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
 [![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/stargazers)
 [![CI](https://github.com/uldyssian-sh/vmware-sec-assessment/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
