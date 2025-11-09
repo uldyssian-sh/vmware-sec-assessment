@@ -34,4 +34,4 @@ def generate_html_report(assessment_data: Dict[str, Any]) -> str:
 def export_json_report(assessment_data: Dict[str, Any], filename: str) -> None:
     """Export assessment data to JSON file."""
     with open(filename, 'w') as f:
-        json.dump(assessment_data, f, indent=2)
+        json.dump(assessment_data, f, indent=2)# Updated Sun Nov  9 12:49:49 CET 2025
