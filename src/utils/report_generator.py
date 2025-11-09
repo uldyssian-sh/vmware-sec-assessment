@@ -36,3 +36,4 @@ def export_json_report(assessment_data: Dict[str, Any], filename: str) -> None:
     with open(filename, 'w') as f:
         json.dump(assessment_data, f, indent=2)# Updated Sun Nov  9 12:49:49 CET 2025
 # Updated Sun Nov  9 12:52:29 CET 2025
+# Updated Sun Nov  9 12:56:22 CET 2025

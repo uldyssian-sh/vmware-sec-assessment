@@ -156,3 +156,4 @@ info: ## Show environment information
 	@echo "Operating System: $$(uname -s 2>/dev/null || echo 'Windows')"
 	@echo "Architecture: $$(uname -m 2>/dev/null || echo 'Unknown')"# Updated 20251109_123821
 # Updated Sun Nov  9 12:52:29 CET 2025
+# Updated Sun Nov  9 12:56:22 CET 2025
