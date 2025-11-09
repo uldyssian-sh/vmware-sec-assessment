@@ -97,4 +97,3 @@ Describe "VMware Security Assessment Mock Tests" {
 AfterAll {
     # Cleanup
     Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
-}# Updated 20251109_123821

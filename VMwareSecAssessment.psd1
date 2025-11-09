@@ -32,4 +32,3 @@
             ReleaseNotes = 'Initial release of VMware Security Assessment Framework'
         }
     }
-}# Updated 20251109_123821

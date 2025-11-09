@@ -269,4 +269,3 @@ Get-Content ".\logs\assessment.log" -Tail 50
 
 ---
 
-**Ready to secure your VMware environment? Start your first assessment now!**# Updated 20251109_123821

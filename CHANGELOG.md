@@ -182,4 +182,3 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ---
 
-**For detailed release information, see GitHub Releases**# Updated 20251109_123821
