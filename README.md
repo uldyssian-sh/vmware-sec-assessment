@@ -1,21 +1,5 @@
 # VMware Security Assessment
 
-[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-sec-assessment?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
-[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
-[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-sec-assessment?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
-[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
-
-[![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
-[![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-sec-assessment)](https://github.com/uldyssian-sh/vmware-sec-assessment/stargazers)
-[![CI](https://github.com/uldyssian-sh/vmware-sec-assessment/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-sec-assessment/actions)
-[![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
-
 ## 🎯 Overview
 
 Comprehensive VMware vSphere security assessment framework with enterprise-grade automation, compliance checking, and reporting capabilities.
@@ -42,18 +26,6 @@ Comprehensive VMware vSphere security assessment framework with enterprise-grade
 
 ```bash
 # Clone repository
-
-[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-sec-assessment?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
-[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
-
-[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-sec-assessment?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
-[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-sec-assessment?style=flat-square)](#)
-[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
 git clone https://github.com/uldyssian-sh/vmware-sec-assessment.git
 cd vmware-sec-assessment
 
@@ -84,8 +56,6 @@ make lint       # Code analysis
 make clean      # Clean build artifacts
 make help       # Show all commands
 ```
-
-
 ## 📚 Documentation
 
 - [Quick Start Guide](docs/QUICK_START.md)
