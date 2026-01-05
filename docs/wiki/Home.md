@@ -14,8 +14,8 @@ Welcome to the VMware Security Assessment documentation wiki. This comprehensive
 ### Core Documentation
 - [Quick Start Guide](../QUICK_START.md) - Get started quickly
 - [Security Framework](../SECURITY-FRAMEWORK.md) - Security assessment framework
-- [Contributing Guidelines](../CONTRIBUTING.md) - How to contribute
-- [Security Policy](../SECURITY.md) - Security policies and procedures
+- [Contributing Guidelines](../../CONTRIBUTING.md) - How to contribute
+- [Security Policy](../../SECURITY.md) - Security policies and procedures
 
 ### Assessment Categories
 - **Infrastructure Security** - ESXi hosts, vCenter Server, network components
@@ -39,7 +39,7 @@ Welcome to the VMware Security Assessment documentation wiki. This comprehensive
 ### Support and Community
 - [GitHub Issues](https://github.com/uldyssian-sh/vmware-sec-assessment/issues)
 - [Discussions](https://github.com/uldyssian-sh/vmware-sec-assessment/discussions)
-- [Contributing](../CONTRIBUTING.md)
+- [Contributing](../../CONTRIBUTING.md)
 
 ## Recent Updates
 - Enhanced security standards documentation
@@ -55,4 +55,4 @@ If you need assistance or have questions:
 4. Join community discussions
 
 ## Contributing
-We welcome contributions to improve this documentation. Please see our [Contributing Guidelines](../CONTRIBUTING.md) for more information.
+We welcome contributions to improve this documentation. Please see our [Contributing Guidelines](../../CONTRIBUTING.md) for more information.
